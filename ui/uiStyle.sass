@@ -1,0 +1,123 @@
+$background: #2C3951 // #e3ddd6 for light
+$accent: #45547d
+$text: #d6d5d9
+$shadow-Size: 1em
+$highlight: lighten($background, 4%)
+
+@mixin neumorphism($background)
+  $highlight: lighten($background, 4%)
+  $lowlight: darken($background, 4%)
+  $shadowhigh: lighten($background, 9%)
+  $shadowlow: darken($background, 9%)
+
+  background: linear-gradient(145deg, $highlight, $lowlight) // new rgb(92,188,244)
+  box-shadow: 0.5em 0.5em 3em $shadowlow, -0.2em -0.5em 2em $shadowhigh
+
+@mixin smallneumorph()
+  $highlight: lighten($background, 5%)
+  $lowlight: darken($background, 1%)
+  $shadowhigh: lighten($background, 12%)
+  $shadowlow: darken($background, 5%)
+
+  background: linear-gradient(145deg, $highlight, $lowlight) // new rgb(92,188,244)
+  box-shadow: 0.5em 0.5em 2em $shadowlow, -0.5em -0.5em 1em $shadowhigh
+
+
+
+body
+  background-color: $background
+  color: #d6d5d9
+  font-family: sans-serif
+  font-weight: bold
+  display: grid
+
+  grid-template-columns: 1fr 2fr 1fr
+  grid-gap: 30px
+  margin: 30px
+  //align-items: center
+
+.section
+  @include neumorphism($background)
+  border-radius: 35px
+  padding: 30px
+
+.input
+  height: 50em
+  display: flex
+  flex-direction: column
+  align-items: center
+  //background-color: #705A7B
+
+.output
+  flex: 1 1 auto
+  overflow-y: auto
+  height: 50em
+
+.output::-webkit-scrollbar
+  width: 12px
+
+.output::-webkit-scrollbar-track
+  border-radius: 20px
+  //background: lighten($background, 10%)
+
+.output::-webkit-scrollbar-thumb
+  background: $text
+  border-radius: 20px
+
+.info
+
+.selector-container
+  @include smallneumorph
+
+  gap: 7px
+  width: 20rem
+  margin: 2px
+  padding: 10px
+  //background-color: $accent
+  border-radius: 5px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  select
+    background-color: $text
+    //color: $text
+    margin: 0
+    font-size: 16px
+    border: none
+    border-radius: 3px
+
+
+.test-container
+  $highlight: lighten($background, 5%)
+  $lowlight: darken($background, 1%)
+  $shadowhigh: lighten($background, 12%)
+  $shadowlow: darken($background, 5%)
+
+  background: $highlight // new rgb(92,188,244)
+  box-shadow: 0.05em 0.2em 1em $shadowlow, -0.2em -0.2em 1em $shadowhigh
+  margin: 3px
+  //background-color: #705A7B
+  border-radius: 5px
+  text-align: center
+  p
+    padding: 5px
+
+.btn-container
+  @include smallneumorph
+
+  margin: 5px
+  button
+    border-radius: 5px
+    padding: 0.5em 1em
+    font-size: 1.5em
+    background-color: #d6d5d9
+    border: none
+
+
+.test-name-btn
+  padding: 5px
+  font-weight: bold
+  font-size: 16px
+  color: $text
+  background: none
+  border: none

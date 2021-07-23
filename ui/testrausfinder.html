@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>TestRausFinder500</title>
+    <link rel="stylesheet" href="uiStyle.css">
+</head>
+<body>
+
+<div class="input section">
+    <div class="fragestellung-container selector-container dif-quest equal-quest connect-quest inverval ordinal nominal">
+        <label for="art-fragestllung"> Art der Fragestllung</label>
+        <select name="art-der-fragestellung" id="art-fragestllung" class="art-der-fragestellung selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="UnterschiedFrage"> Unterschied</option>
+            <option value="ZusammenhangFrage">Zusammenhang</option>
+            <option value="GleichheitFrage">Gleichheit</option>
+        </select>
+    </div>
+    <div class="scale-niveau-container selector-container dif-quest equal-quest connect-quest inverval ordinal nominal">
+        <label for="scale-niveau">Skalenniveau</label>
+        <select name="scale-niveau" id="scale-niveau" class="niveau selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="nominalScale">Nominal</option>
+            <option value="ordinalScale">Ordinal</option>
+            <option value="intervalScale">Interval</option>
+            <option value="SkalenniveauAVintervalScale">UV: nominal AV: intervall</option>
+        </select>
+    </div>
+    <div class="interval-difference-mvv-container selector-container dif-quest inverval">
+        <label for="interval-difference-mvv">Unterschiede</label>
+        <select name="interval-difference" id="interval-difference-mvv" class="intervall-difference selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="unterschiedHinsichtMittelwert">Mittelwert</option>
+            <option value="unterschiedHinsichtVarianz">Varianz</option>
+            <option value="unterschiedHinsichtVerteilung">Verteilung</option>
+        </select>
+    </div>
+    <div class="ordinal-sample-amt-container selector-container dif-quest equal-quest inverval ordinal nominal">
+        <label for="dependency">Abhängigkeit</label>
+        <select name="ordinal-sample-amt" id="dependency" class="ordinal-sample-amt selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="AbhaengigkeitTrue">abhängig</option>
+            <option value="AbhaengigkeitFalse">unanhängig</option>
+        </select>
+    </div>
+    <div class="nominal-sample-amt-container selector-container dif-quest connect-quest inverval ordinal nominal">
+        <label for="sample-amt">Anzahl SP</label>
+        <select name="nominal-sample-amt" id="sample-amt" class="nominal-sample-amt selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="amtStichProbe1SP">1 Stichprobe</option>
+            <option value="amtStichProbe2SP">2 Stichproben</option>
+            <option value="amtStichProbe>2SP">&gt 2 Stichproben</option>
+        </select>
+    </div>
+    <div class="amt-factors-container selector-container dif-quest inverval">
+        <label for="factors-amt">Anzahl Faktoren</label>
+        <select name="nominal-sample-amt" id="factors-amt" class="factors-amt selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="amtFaktoren1">1 Faktor</option>
+            <option value="amtFaktoren2">2 Faktor</option>
+        </select>
+    </div>
+    <div class="amt-categories-container selector-container dif-quest connect-quest nominal">
+        <label for="categories-amt">Anzahl Kategorien</label>
+        <select name="categories-sample-amt" id="categories-amt" class="categories-amt selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="amtKategorienDichotom">Dichotom</option>
+            <option value="amtKategorienPolytom">Polytom</option>
+        </select>
+    </div>
+    <div class="interval-difference-mw-sample-container selector-container dif-quest inverval ordinal nominal">
+        <label for="interval-difference-mw-sample">Datenreihen</label>
+        <select name="nominal-sample-amt" id="interval-difference-mw-sample"
+                class="interval-difference-mw-sample selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="amtStichProbe1SP">1 Stichprobe</option>
+            <option value="amtStichProbe1VSGG">1 Stichprobe gegen GG</option>
+            <option value="amtStichProbe2SP">2 Stichproben - 2 Datenreihen</option>
+            <option value="amtStichProbe>2SP">&gt 2 Stichproben</option>
+        </select>
+    </div>
+    <div class="expexted-frequency-container selector-container dif-quest nominal">
+        <label for="expexted-frequency">Erwartete Häufigkeit</label>
+        <select name="nominal-sample-amt" id="expexted-frequency" class="expexted-frequency selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="erwartetehaufigkeite*p*q>9">n*p*q &gt 9</option>
+            <option value="erwartetehaufigkeite>10">e &gt 10</option>
+            <option value="erwartetehaufigkeite<=10">e ≤ 10</option>
+        </select>
+    </div>
+    <div class="parametric-container selector-container dif-quest equal-quest connect-quest inverval ordinal nominal">
+        <label for="parametric">Parametrisch</label>
+        <select name="nominal-sample-amt" id="parametric" class="parametric selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="parametrisch">parametrisch</option>
+            <option value="nonparametrisch">nonparametrisch</option>
+        </select>
+    </div>
+    <div class="pop-variance-container selector-container dif-quest inverval">
+        <label for="population-variance">PopulationsVarianz</label>
+        <select name="pop-variance" id="population-variance" class="pop-variance selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="PopulationsVarianzBekannt">bekannt</option>
+            <option value="PopulationsVarianzUnbekannt">unbekannt</option>
+        </select>
+    </div>
+    <div class="variance-container selector-container dif-quest inverval">
+        <label for="variance">Varianzen</label>
+        <select name="pop-variance" id="variance" class="pop-variance selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="varianzenHomogen">homogen</option>
+            <option value="varianzenHeterogen">heterogen</option>
+        </select>
+    </div>
+    <div class="interval-difference-distribution-sample-container selector-container dif-quest inverval">
+        <label for="interval-difference-distribution-sample">Stichprobe Gegen</label>
+        <select name="nominal-sample-amt" id="interval-difference-distribution-sample"
+                class="interval-difference-distribution-sample selector">
+            <option value="dunno">Keine Ahnung</option>
+            <option value="1sam-vs-gg">1 Stichprobe gegen GG</option>
+            <option value="2sam - 2rows">2 Stichproben - 2 Datenreihen</option>
+        </select>
+    </div>
+    <div class="rangbindung-container selector-container dif-quest ordinal">
+        <label for="rangbindung"> besteht Rangbindung</label>
+        <select name="rangbindung" id="rangbindung">
+            <option value="dunno">Unentschieden</option>
+            <option value="rangbindungNEIN">Nein</option>
+            <option value="rangbindungJA">Ja</option>
+        </select>
+    </div>
+    <div class="edge-prob-container selector-container dif-quest nominal">
+        <label for="edge-prob">Randwahrscheinlichkeiten</label>
+        <select name="edge-prob" id="edge-prob">
+            <option value="dunno">Unentschieden</option>
+            <option value="randwarscheinlichkeitBekannt">bekannt</option>
+            <option value="randwarscheinlichkeitUnbekannt">unbekannt</option>
+        </select>
+    </div>
+    <div class="size-correl-container selector-container connect-quest inverval">
+        <label for="size-correl">Größe Korrelation</label>
+        <select name="size-correl" id="size-correl">
+            <option value="dunno">Unentschieden</option>
+            <option value="groesseKorrelP=0">p=0</option>
+            <option value="groesseKorrelP!=0">p ≠ 0</option>
+        </select>
+    </div>
+    <div class="equivalence-area-container selector-container equal-quest inverval">
+        <label for="equivalence-area">Äquivalenzbereich</label>
+        <select name="equivalence-area" id="equivalence-area">
+            <option value="dunno">Unentschieden</option>
+            <option value="aequivalenzgegeben">gegeben</option>
+            <option value="aequivalenzNichtgegeben">nicht gegeben/option>
+        </select>
+    </div>
+    <div class="sample-size-container selector-container">
+        <label for="sample-size">Stichprobengröße</label>
+        <input type="number" id="sample-size">
+    </div>
+    <div class="btn-container">
+        <button class="btn" id="send-btn">drücken</button>
+    </div>
+</div>
+<div class="output section" id="output-div">
+    <p>Test</p>
+</div>
+<div class="info section">
+    <p id="info-text">Info</p>
+</div>
+
+
+<script src="../build/testRausfinder.js" type="module"></script>
+<script src="../build/tests.js" type="module"></script>
+<script src="../build/TestsAsClass.js" type="module"></script>
+</body>
+</html>

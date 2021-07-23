@@ -1,0 +1,98 @@
+body {
+  background-color: #2C3951;
+  color: #d6d5d9;
+  font-family: sans-serif;
+  font-weight: bold;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 30px;
+  margin: 30px;
+}
+
+.section {
+  background: linear-gradient(145deg, #33425e, #253044);
+  box-shadow: 0.5em 0.5em 3em #1c2433, -0.2em -0.5em 2em #3c4e6f;
+  border-radius: 35px;
+  padding: 30px;
+}
+
+.input {
+  height: 50em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.output {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: 50em;
+}
+
+.output::-webkit-scrollbar {
+  width: 12px;
+}
+
+.output::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+.output::-webkit-scrollbar-thumb {
+  background: #d6d5d9;
+  border-radius: 20px;
+}
+
+.selector-container {
+  background: linear-gradient(145deg, #354562, #2a374e);
+  box-shadow: 0.5em 0.5em 2em #232d40, -0.5em -0.5em 1em #425579;
+  gap: 7px;
+  width: 20rem;
+  margin: 2px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.selector-container select {
+  background-color: #d6d5d9;
+  margin: 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+}
+
+.test-container {
+  background: #354562;
+  box-shadow: 0.05em 0.2em 1em #232d40, -0.2em -0.2em 1em #425579;
+  margin: 3px;
+  border-radius: 5px;
+  text-align: center;
+}
+.test-container p {
+  padding: 5px;
+}
+
+.btn-container {
+  background: linear-gradient(145deg, #354562, #2a374e);
+  box-shadow: 0.5em 0.5em 2em #232d40, -0.5em -0.5em 1em #425579;
+  margin: 5px;
+}
+.btn-container button {
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  font-size: 1.5em;
+  background-color: #d6d5d9;
+  border: none;
+}
+
+.test-name-btn {
+  padding: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #d6d5d9;
+  background: none;
+  border: none;
+}
+
+/*# sourceMappingURL=uiStyle.css.map */
