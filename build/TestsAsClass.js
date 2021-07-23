@@ -26,7 +26,7 @@ const parametrisch = {
     param: "parametrisch",
     nonparam: "nonparametrisch"
 };
-class Test {
+export class Test {
     constructor(name, info, tags, minN, maxN, aka) {
         this._name = name;
         this._info = info;

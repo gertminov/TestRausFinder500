@@ -1,8 +1,6 @@
-// import {testArray} from "./tests.js";
 import { testClassArray } from "./TestsAsClass.js";
 let samplesize = 0;
 let searchedTags = [];
-let alltests;
 const differenceQuestion = "dif-quest";
 const equalityQuestion = "equal-quest";
 const connectQuestion = "connect-quest";
@@ -10,7 +8,6 @@ const connectQuestion = "connect-quest";
  * befuellt searchedTags mit allen gewälten constraints
  */
 function getSearchTags() {
-    let allTags = [];
     const artFragestellung = getHTMLElementByIDValue('art-fragestllung');
     const skalenniveau = getHTMLElementByIDValue('scale-niveau');
     const rangbindung = getHTMLElementByIDValue('rangbindung');
@@ -28,7 +25,8 @@ function getSearchTags() {
     const sizeCorrel = getHTMLElementByIDValue('size-correl');
     const equivalence = getHTMLElementByIDValue('equivalence-area');
     samplesize = parseInt(getHTMLElementByIDValue('sample-size'), 10);
-    allTags.push(artFragestellung, rangbindung, skalenniveau, unterschiede, amtSample, dependency, datenreihen, parametrisch, popVarianz, variance, amtFactor, amtCategories, expFrequency, edgeProb, sizeCorrel, equivalence); //alle Felder werden in Array eingelesen
+    const allTags = [artFragestellung, rangbindung, skalenniveau, unterschiede, amtSample, dependency, datenreihen,
+        parametrisch, popVarianz, variance, amtFactor, amtCategories, expFrequency, edgeProb, sizeCorrel, equivalence]; //alle Felder werden in Array eingelesen
     searchedTags = allTags.filter(tag => tag != "dunno"); //alle Leeren Felder werden rausgefiltert
     console.log("searchedTags: " + searchedTags);
 }
@@ -47,39 +45,46 @@ function testAnzeiger() {
     const output = document.getElementById('output-div'); // container in dem die Tests angezeigt werden
     output.innerHTML = ""; //leert output container
     for (const test of testClassArray) {
-        let obergr = true;
-        let untergr = true;
-        if (!isNaN(samplesize)) { //Checked ob stichprobengröße angegeben wurde
-            if (test.minN) { //Checked ob test.minN nicht undifined ist
-                if (test.minN > samplesize) {
-                    untergr = false;
-                }
-            }
-            if (test.maxN) { //Checked ob test.maxN nicht undefined ist
-                if (test.maxN < samplesize) {
-                    obergr = false;
-                }
-            }
-        }
         //wenn Ober und Untergrenze passen und alle tags matchen wird das element erstellt
-        // @ts-ignore
-        if (untergr && obergr && checkAllTagsInTest(test)) {
-            const testdiv = document.createElement('div');
-            testdiv.setAttribute('class', "test-container");
-            const testname = document.createElement('button');
-            testname.setAttribute('class', 'test-name-btn');
-            testname.setAttribute('value', test.name);
-            testname.innerText = test.name;
-            testdiv.appendChild(testname);
-            output.appendChild(testdiv);
+        if (checkSampleLimits(test) && checkAllTagsInTest(test)) {
+            createTestElement(test, output);
         }
     }
-    alltests = document.getElementsByClassName('test-name-btn');
-    listenerAssigner(alltests);
-    searchedTags = []; //Leert das Array
+    const allMatchingTests = document.getElementsByClassName('test-name-btn');
+    listenerAssigner(allMatchingTests);
+    emptySeearchedTags();
+}
+function checkSampleLimits(test) {
+    if (!isNaN(samplesize)) { //Checked ob stichprobengröße angegeben wurde
+        if (test.minN) { //Checked ob test.minN nicht undifined ist
+            if (test.minN > samplesize) {
+                return false;
+            }
+        }
+        if (test.maxN) { //Checked ob test.maxN nicht undefined ist
+            if (test.maxN < samplesize) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+function createTestElement(test, output) {
+    const testdiv = document.createElement('div');
+    testdiv.setAttribute('class', "test-container");
+    const testname = document.createElement('button');
+    testname.setAttribute('class', 'test-name-btn');
+    testname.setAttribute('value', test.name);
+    testname.innerText = test.name;
+    testdiv.appendChild(testname);
+    output.appendChild(testdiv);
 }
 function checkAllTagsInTest(test) {
+    //@ts-ignore
     return searchedTags.every(searchtag => test.tags.includes(searchtag));
+}
+function emptySeearchedTags() {
+    searchedTags = [];
 }
 /**
  * Fuegt eventlistener zu allen Tests
@@ -109,33 +114,27 @@ function questionSelectorLimiter(e) {
     switch (value) {
         case "UnterschiedFrage":
             hider('selector-container');
-            unhider(differenceQuestion);
+            unhider("dif-quest");
             break;
         case "ZusammenhangFrage":
             hider('selector-container');
-            unhider(connectQuestion);
+            unhider("connect-quest");
             break;
         case "GleichheitFrage":
             hider('selector-container');
-            unhider(equalityQuestion);
+            unhider("equal-quest");
             break;
         default:
             unhider('selector-container');
             break;
     }
 }
-function valueToHTMLCLassName(valueName) {
-    switch (valueName) {
-        case "UnterschiedFrage":
-            return "dif-quest";
-        case "ZusammenhangFrage":
-            return "connect-quest";
-        case "GleichheitFrage":
-            return "equal-quest";
-        default:
-            return "dunno";
-    }
-}
+const valueToHTMLCLass = {
+    "UnterschiedFrage": " dif-quest",
+    "ZusammenhangFrage": " connect-quest",
+    "GleichheitFrage": " equal-quest",
+    "dunno": ""
+};
 document.getElementById('scale-niveau').onchange = scaleNiveauHandeler;
 function scaleNiveauHandeler(e) {
     testAnzeiger();
@@ -143,13 +142,7 @@ function scaleNiveauHandeler(e) {
 }
 function scaleSelectorLimiter(e) {
     let frageValue = fragestellung.value;
-    frageValue = valueToHTMLCLassName(frageValue);
-    if (frageValue == "dunno") {
-        frageValue = "";
-    }
-    else {
-        frageValue = " " + frageValue;
-    }
+    frageValue = valueToHTMLCLass[frageValue];
     const value = e.target.value;
     switch (value) {
         case "intervalScale":
