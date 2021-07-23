@@ -11,27 +11,29 @@ const connectQuestion = "connect-quest";
  */
 function getSearchTags() {
     let allTags = [];
-    const artFragestellung = document.getElementById('art-fragestllung').value;
-    const skalenniveau = document.getElementById('scale-niveau').value;
-    const rangbindung = document.getElementById('rangbindung').value;
-    const unterschiede = document.getElementById('interval-difference-mvv').value;
-    const amtSample = document.getElementById('sample-amt').value;
-    const amtFactor = document.getElementById('factors-amt').value;
-    const dependency = document.getElementById('dependency').value;
-    const datenreihen = document.getElementById('interval-difference-mw-sample').value;
-    const parametrisch = document.getElementById('parametric').value;
-    const popVarianz = document.getElementById('population-variance').value;
-    const variance = document.getElementById('variance').value;
-    const amtCategories = document.getElementById('categories-amt').value;
-    const expFrequency = document.getElementById('expexted-frequency').value;
-    const edgeProb = document.getElementById('edge-prob').value;
-    const sizeCorrel = document.getElementById('size-correl').value;
-    const equivalence = document.getElementById('equivalence-area').value;
-    samplesize = parseInt(document.getElementById('sample-size').value, 10);
-    console.log(samplesize);
+    const artFragestellung = getHTMLElementByIDValue('art-fragestllung');
+    const skalenniveau = getHTMLElementByIDValue('scale-niveau');
+    const rangbindung = getHTMLElementByIDValue('rangbindung');
+    const unterschiede = getHTMLElementByIDValue('interval-difference-mvv');
+    const amtSample = getHTMLElementByIDValue('sample-amt');
+    const amtFactor = getHTMLElementByIDValue('factors-amt');
+    const dependency = getHTMLElementByIDValue('dependency');
+    const datenreihen = getHTMLElementByIDValue('interval-difference-mw-sample');
+    const parametrisch = getHTMLElementByIDValue('parametric');
+    const popVarianz = getHTMLElementByIDValue('population-variance');
+    const variance = getHTMLElementByIDValue('variance');
+    const amtCategories = getHTMLElementByIDValue('categories-amt');
+    const expFrequency = getHTMLElementByIDValue('expexted-frequency');
+    const edgeProb = getHTMLElementByIDValue('edge-prob');
+    const sizeCorrel = getHTMLElementByIDValue('size-correl');
+    const equivalence = getHTMLElementByIDValue('equivalence-area');
+    samplesize = parseInt(getHTMLElementByIDValue('sample-size'), 10);
     allTags.push(artFragestellung, rangbindung, skalenniveau, unterschiede, amtSample, dependency, datenreihen, parametrisch, popVarianz, variance, amtFactor, amtCategories, expFrequency, edgeProb, sizeCorrel, equivalence); //alle Felder werden in Array eingelesen
     searchedTags = allTags.filter(tag => tag != "dunno"); //alle Leeren Felder werden rausgefiltert
     console.log("searchedTags: " + searchedTags);
+}
+function getHTMLElementByIDValue(id) {
+    return document.getElementById(id).value;
 }
 document.getElementById('send-btn').addEventListener('click', testAnzeiger);
 const selectors = document.getElementsByClassName('selector');
@@ -50,22 +52,18 @@ function testAnzeiger() {
         if (!isNaN(samplesize)) { //Checked ob stichprobengröße angegeben wurde
             if (test.minN) { //Checked ob test.minN nicht undifined ist
                 if (test.minN > samplesize) {
-                    console.log(test.name);
-                    console.log(test.minN);
-                    console.log("samma1");
                     untergr = false;
                 }
             }
             if (test.maxN) { //Checked ob test.maxN nicht undefined ist
                 if (test.maxN < samplesize) {
-                    console.log("samma");
                     obergr = false;
                 }
             }
         }
         //wenn Ober und Untergrenze passen und alle tags matchen wird das element erstellt
         // @ts-ignore
-        if (untergr && obergr && searchedTags.every(searchtag => test.tags.includes(searchtag))) {
+        if (untergr && obergr && checkAllTagsInTest(test)) {
             const testdiv = document.createElement('div');
             testdiv.setAttribute('class', "test-container");
             const testname = document.createElement('button');
@@ -79,6 +77,9 @@ function testAnzeiger() {
     alltests = document.getElementsByClassName('test-name-btn');
     listenerAssigner(alltests);
     searchedTags = []; //Leert das Array
+}
+function checkAllTagsInTest(test) {
+    return searchedTags.every(searchtag => test.tags.includes(searchtag));
 }
 /**
  * Fuegt eventlistener zu allen Tests

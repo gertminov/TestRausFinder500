@@ -37,7 +37,7 @@ const parametrisch = {
 }
 
 
-class Test {
+export class Test {
     private _name: string
     private _info: string
     private _aka: string

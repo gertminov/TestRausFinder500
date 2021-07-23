@@ -1,10 +1,10 @@
 // import {testArray} from "./tests.js";
-import {testClassArray} from "./TestsAsClass.js";
+import {testClassArray, Test} from "./TestsAsClass.js";
 
 let samplesize: number = 0
 
 let searchedTags = []
-let alltests
+let allMatchingTests
 
 const differenceQuestion: string = "dif-quest"
 const equalityQuestion: string = "equal-quest"
@@ -16,39 +16,39 @@ const connectQuestion = "connect-quest";
  */
 function getSearchTags():void {
     let allTags = []
-    const artFragestellung = (<HTMLInputElement> document.getElementById('art-fragestllung')).value;
-    const skalenniveau = (<HTMLInputElement> document.getElementById('scale-niveau')).value;
-    const rangbindung = (<HTMLInputElement> document.getElementById('rangbindung')).value;
-    const unterschiede = (<HTMLInputElement> document.getElementById('interval-difference-mvv')).value;
-    const amtSample = (<HTMLInputElement> document.getElementById('sample-amt')).value;
-    const amtFactor = (<HTMLInputElement> document.getElementById('factors-amt')).value;
-    const dependency = (<HTMLInputElement> document.getElementById('dependency')).value;
-    const datenreihen = (<HTMLInputElement> document.getElementById('interval-difference-mw-sample')).value;
-    const parametrisch = (<HTMLInputElement> document.getElementById('parametric')).value;
-    const popVarianz = (<HTMLInputElement> document.getElementById('population-variance')).value;
-    const variance = (<HTMLInputElement> document.getElementById('variance')).value;
-    const amtCategories = (<HTMLInputElement> document.getElementById('categories-amt')).value;
-    const expFrequency = (<HTMLInputElement> document.getElementById('expexted-frequency')).value;
-    const edgeProb = (<HTMLInputElement> document.getElementById('edge-prob')).value;
-    const sizeCorrel = (<HTMLInputElement> document.getElementById('size-correl')).value;
-    const equivalence = (<HTMLInputElement> document.getElementById('equivalence-area')).value;
-    samplesize = parseInt((<HTMLInputElement> document.getElementById('sample-size')).value, 10);
-    console.log(samplesize)
-
+    const artFragestellung = getHTMLElementByIDValue('art-fragestllung')
+    const skalenniveau = getHTMLElementByIDValue('scale-niveau')
+    const rangbindung = getHTMLElementByIDValue('rangbindung')
+    const unterschiede = getHTMLElementByIDValue('interval-difference-mvv')
+    const amtSample = getHTMLElementByIDValue('sample-amt')
+    const amtFactor = getHTMLElementByIDValue('factors-amt')
+    const dependency = getHTMLElementByIDValue('dependency')
+    const datenreihen = getHTMLElementByIDValue('interval-difference-mw-sample')
+    const parametrisch = getHTMLElementByIDValue('parametric')
+    const popVarianz = getHTMLElementByIDValue('population-variance')
+    const variance = getHTMLElementByIDValue('variance')
+    const amtCategories = getHTMLElementByIDValue('categories-amt')
+    const expFrequency = getHTMLElementByIDValue('expexted-frequency')
+    const edgeProb = getHTMLElementByIDValue('edge-prob')
+    const sizeCorrel = getHTMLElementByIDValue('size-correl')
+    const equivalence = getHTMLElementByIDValue('equivalence-area')
+    samplesize = parseInt(getHTMLElementByIDValue('sample-size'), 10);
 
     allTags.push(artFragestellung, rangbindung, skalenniveau, unterschiede, amtSample, dependency, datenreihen,
         parametrisch, popVarianz, variance, amtFactor, amtCategories,expFrequency, edgeProb, sizeCorrel, equivalence) //alle Felder werden in Array eingelesen
 
     searchedTags = allTags.filter(tag => tag != "dunno") //alle Leeren Felder werden rausgefiltert
     console.log("searchedTags: "+ searchedTags)
+}
 
-
+function getHTMLElementByIDValue(id:string):string {
+    return (<HTMLInputElement> document.getElementById(id)).value;
 }
 
 
 
-
 document.getElementById('send-btn').addEventListener('click', testAnzeiger )
+
 const selectors = document.getElementsByClassName('selector');
 for (const selector of selectors) {
     //@ts-ignore
@@ -67,23 +67,18 @@ function testAnzeiger ():void {
         if (!isNaN(samplesize)) { //Checked ob stichprobengröße angegeben wurde
             if (test.minN)  { //Checked ob test.minN nicht undifined ist
                 if (test.minN > samplesize){
-                    console.log(test.name)
-                    console.log(test.minN)
-                    console.log("samma1")
                     untergr = false;
                 }
             }
             if (test.maxN) { //Checked ob test.maxN nicht undefined ist
                 if (test.maxN < samplesize){
-                    console.log("samma")
                     obergr = false
                 }
             }
         }
 
         //wenn Ober und Untergrenze passen und alle tags matchen wird das element erstellt
-        // @ts-ignore
-        if (untergr && obergr &&searchedTags.every(searchtag => test.tags.includes(searchtag))){
+        if (untergr && obergr && checkAllTagsInTest(test)){
             const testdiv = document.createElement('div');
             testdiv.setAttribute('class', "test-container")
             const testname = document.createElement('button')
@@ -95,9 +90,19 @@ function testAnzeiger ():void {
         }
 
     }
-    alltests = document.getElementsByClassName('test-name-btn')
-    listenerAssigner(alltests)
-    searchedTags = [] //Leert das Array
+    allMatchingTests = document.getElementsByClassName('test-name-btn')
+    listenerAssigner(allMatchingTests)
+    emptySeearchedTags()
+}
+
+
+function checkAllTagsInTest(test: Test):boolean {
+    //@ts-ignore
+    return searchedTags.every(searchtag => test.tags.includes(searchtag))
+}
+
+function emptySeearchedTags() {
+    searchedTags = []
 }
 
 /**
