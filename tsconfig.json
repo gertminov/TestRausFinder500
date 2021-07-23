@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "ES2020",
+    "target": "es6",
+    "sourceMap": true,
+      "outDir": "build",
+//    "lib": ["ES2016", "DOM"]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+    "include": [
+        "scr"
+    ]
+}
