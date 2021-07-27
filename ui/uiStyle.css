@@ -1,17 +1,17 @@
 body {
-  background-color: #2C3951;
+  background-color: #2e3136;
   color: #d6d5d9;
   font-family: sans-serif;
   font-weight: bold;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-gap: 30px;
-  margin: 30px;
+  margin: 16px;
 }
 
 .section {
-  background: linear-gradient(145deg, #33425e, #253044);
-  box-shadow: 0.5em 0.5em 3em #1c2433, -0.2em -0.5em 2em #3c4e6f;
+  background: linear-gradient(145deg, #3c3c44, #28282e);
+  box-shadow: 0.5em 0.5em 3em #1d1d21, -0.2em -0.5em 2em #474751;
   border-radius: 35px;
   padding: 30px;
 }
@@ -43,8 +43,8 @@ body {
 }
 
 .selector-container {
-  background: linear-gradient(145deg, #354562, #2a374e);
-  box-shadow: 0.5em 0.5em 2em #232d40, -0.5em -0.5em 1em #425579;
+  background: linear-gradient(145deg, #3a3d44, #2c2f33);
+  box-shadow: 0.5em 0.5em 2em #222528, -0.5em -0.5em 1em #4a4f57;
   gap: 7px;
   width: 20rem;
   margin: 2px;
@@ -63,8 +63,8 @@ body {
 }
 
 .test-container {
-  background: #354562;
-  box-shadow: 0.05em 0.2em 1em #232d40, -0.2em -0.2em 1em #425579;
+  background: #3a3d44;
+  box-shadow: 0.05em 0.2em 1em #222528, -0.2em -0.2em 1em #4a4f57;
   margin: 3px;
   border-radius: 5px;
   text-align: center;
@@ -74,8 +74,8 @@ body {
 }
 
 .btn-container {
-  background: linear-gradient(145deg, #354562, #2a374e);
-  box-shadow: 0.5em 0.5em 2em #232d40, -0.5em -0.5em 1em #425579;
+  background: linear-gradient(145deg, #3a3d44, #2c2f33);
+  box-shadow: 0.5em 0.5em 2em #222528, -0.5em -0.5em 1em #4a4f57;
   margin: 5px;
 }
 .btn-container button {

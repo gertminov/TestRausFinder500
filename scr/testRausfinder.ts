@@ -1,9 +1,41 @@
 import {testClassArray, Test} from "./TestsAsClass.js";
 
+const sendBtn = document.getElementById('send-btn')
+
 let samplesize: number = 0
 
 let searchedTags = []
 
+sendBtn.addEventListener('click', testAnzeiger )
+
+const selectors = document.getElementsByClassName('selector');
+//adds onchangeEvent to every Selector
+for (const selector of selectors) {
+    //@ts-ignore
+    selector.onchange = selectorChangeHandeler
+}
+
+function selectorChangeHandeler(e) {
+    testAnzeiger()
+}
+
+
+function testAnzeiger ():void {
+    console.clear()
+    getSearchTags()
+    const output = document.getElementById('output-div') // container in dem die Tests angezeigt werden
+    output.innerHTML = "" //leert output container
+    for (const test of testClassArray) {
+        //wenn Ober und Untergrenze passen und alle tags matchen wird das element erstellt
+        if (checkSampleLimits(test) && checkAllTagsInTest(test)){
+            createTestElement(test, output)
+        }
+    }
+    const allMatchingTests = document.getElementsByClassName('test-name-btn')
+    listenerAssigner(allMatchingTests)
+    emptySeearchedTags()
+
+}
 
 /**
  * befuellt searchedTags mit allen gewälten constraints
@@ -31,35 +63,11 @@ function getSearchTags():void {
         parametrisch, popVarianz, variance, amtFactor, amtCategories,expFrequency, edgeProb, sizeCorrel, equivalence] //alle Felder werden in Array eingelesen
 
     searchedTags = allTags.filter(tag => tag != "dunno") //alle Leeren Felder werden rausgefiltert
-    console.log("searchedTags: "+ searchedTags)
+    // console.log("searchedTags: "+ searchedTags)
 }
 
 function getHTMLElementByIDValue(id:string):string {
     return (<HTMLInputElement> document.getElementById(id)).value;
-}
-
-document.getElementById('send-btn').addEventListener('click', testAnzeiger )
-
-const selectors = document.getElementsByClassName('selector');
-for (const selector of selectors) {
-    //@ts-ignore
-    selector.onchange = testAnzeiger
-}
-
-function testAnzeiger ():void {
-    console.clear()
-    getSearchTags()
-    const output = document.getElementById('output-div') // container in dem die Tests angezeigt werden
-    output.innerHTML = "" //leert output container
-    for (const test of testClassArray) {
-        //wenn Ober und Untergrenze passen und alle tags matchen wird das element erstellt
-        if (checkSampleLimits(test) && checkAllTagsInTest(test)){
-            createTestElement(test, output)
-        }
-    }
-    const allMatchingTests = document.getElementsByClassName('test-name-btn')
-    listenerAssigner(allMatchingTests)
-    emptySeearchedTags()
 }
 
 function checkSampleLimits(test: Test):boolean {
@@ -78,7 +86,12 @@ function checkSampleLimits(test: Test):boolean {
     return true
 }
 
-function createTestElement(test: Test, output) {
+function checkAllTagsInTest(test: Test):boolean {
+    //@ts-ignore
+    return searchedTags.every(searchtag => test.tags.includes(searchtag))
+}
+
+function createTestElement(test: Test, output): void {
     const testdiv = document.createElement('div');
     testdiv.setAttribute('class', "test-container")
     const testname = document.createElement('button')
@@ -87,15 +100,6 @@ function createTestElement(test: Test, output) {
     testname.innerText = test.name;
     testdiv.appendChild(testname)
     output.appendChild(testdiv);
-}
-
-function checkAllTagsInTest(test: Test):boolean {
-    //@ts-ignore
-    return searchedTags.every(searchtag => test.tags.includes(searchtag))
-}
-
-function emptySeearchedTags() {
-    searchedTags = []
 }
 
 /**
@@ -116,16 +120,19 @@ function listenerAssigner(array):void{
     }
 }
 
+function emptySeearchedTags() {
+    searchedTags = []
+}
 
 const fragestellung = document.getElementById('art-fragestllung')
 fragestellung.onchange = artFragestellungHandeler
 
 function artFragestellungHandeler(e) {
     testAnzeiger()
-    questionSelectorLimiter(e)
+    artFragestellungSelectorLimiter(e)
 }
 
-function questionSelectorLimiter(e) {
+function artFragestellungSelectorLimiter(e) {
     const value = e.target.value;
     switch (value) {
         case "UnterschiedFrage":
@@ -146,18 +153,18 @@ function questionSelectorLimiter(e) {
     }
 }
 
-const valueToHTMLCLass = {
-    "UnterschiedFrage": " dif-quest",
-    "ZusammenhangFrage": " connect-quest",
-    "GleichheitFrage": " equal-quest",
-    "dunno": ""
-}
-
 document.getElementById('scale-niveau').onchange = scaleNiveauHandeler
 
 function scaleNiveauHandeler(e) {
     testAnzeiger()
     scaleSelectorLimiter(e)
+}
+
+const valueToHTMLCLass = {
+    "UnterschiedFrage": " dif-quest",
+    "ZusammenhangFrage": " connect-quest",
+    "GleichheitFrage": " equal-quest",
+    "dunno": ""
 }
 
 function scaleSelectorLimiter(e) {
@@ -187,20 +194,24 @@ function scaleSelectorLimiter(e) {
  * Hided alle allemente mit gegebenem Klassennamen
  * @param classname Name der Klasse die versteckt werden soll
  */
-function hider(classname: string) {
+function hider(classname: string): void {
     const differenceElems = document.getElementsByClassName(classname);
     for (const element of differenceElems) {
+        if (element.id == "fragestllung" || element.classList.contains("scale-niveau-container")) {
+            continue
+        }
         //@ts-ignore
-        element.style.visibility = 'hidden'
+        element.style.visibility = 'hidden';
         //@ts-ignore
         element.style.display = 'none'
     }
 }
 
-function unhider(classname: string) {
+function unhider(classname: string): void {
     console.log(classname);
     const allContainers = document.getElementsByClassName(classname);
     for (const element of allContainers) {
+        // (element.querySelector('select')).value = "dunno"
         //@ts-ignore
         element.style.visibility = 'visible'
         //@ts-ignore
