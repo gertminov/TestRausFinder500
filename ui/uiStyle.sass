@@ -44,10 +44,25 @@ body
 
 .input
   height: 50em
+  //flex: none
+  overflow-y: auto
+  //overflow-x: hidden
   display: flex
   flex-direction: column
   align-items: center
   //background-color: #705A7B
+
+.input::-webkit-scrollbar
+  width: 12px
+
+.input::-webkit-scrollbar-track
+  border-radius: 20px
+//background: lighten($background, 10%)
+
+.input::-webkit-scrollbar-thumb
+  background: $text
+  border-radius: 20px
+
 
 .output
   flex: 1 1 auto
@@ -71,7 +86,7 @@ body
   @include smallneumorph
 
   gap: 7px
-  width: 20rem
+  width: 16rem
   margin: 2px
   padding: 10px
   //background-color: $accent

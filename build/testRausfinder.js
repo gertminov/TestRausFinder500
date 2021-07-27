@@ -1,4 +1,32 @@
 import { testClassArray } from "./TestsAsClass.js";
+import { selectorMap } from "./Selector2.js";
+for (const [key, selector] of selectorMap) {
+    createElement(selector);
+}
+function createElement(elem) {
+    const container = document.createElement('div');
+    container.setAttribute('id', elem.name + "-container");
+    container.setAttribute('class', "selector-container");
+    const label = document.createElement('label');
+    label.setAttribute('for', elem.name);
+    label.innerText = elem.label;
+    const select = document.createElement('select');
+    select.setAttribute("id", elem.name);
+    select.setAttribute('class', 'selector');
+    container.appendChild(label);
+    container.appendChild(select);
+    for (const optionsKey in elem.options) {
+        const option = document.createElement('option');
+        option.setAttribute('value', optionsKey);
+        if (optionsKey == "dunno") {
+            option.setAttribute('id', 'dunno');
+        }
+        option.innerText = elem.options[optionsKey];
+        select.appendChild(option);
+    }
+    const samplesize = document.getElementById('sample-size-container');
+    document.getElementById('input').insertBefore(container, samplesize);
+}
 const sendBtn = document.getElementById('send-btn');
 let samplesize = 0;
 let searchedTags = [];
@@ -9,8 +37,36 @@ for (const selector of selectors) {
     //@ts-ignore
     selector.onchange = selectorChangeHandeler;
 }
-function selectorChangeHandeler(e) {
+function selectorChangeHandeler() {
     testAnzeiger();
+    selectorHider();
+}
+function selectorHider() {
+    console.log("selectorHiderGeht");
+    selectorMap.forEach(elem => elem.visibility = false);
+    selectorMap.get("fragestellung").setChildrenVisibility();
+    selectorMap.forEach(elem => {
+        if (!elem.visibility) {
+            hider(elem.name);
+        }
+        else {
+            unhider(elem.name);
+        }
+    });
+}
+function hider(id) {
+    const element = document.getElementById(id + "-container");
+    const dunnoElem = element.querySelector("#dunno");
+    dunnoElem.selected = true;
+    //@ts-ignore
+    element.style.visibility = 'hidden';
+    //@ts-ignore
+    element.style.display = 'none';
+}
+function unhider(id) {
+    const element = document.getElementById(id + "-container");
+    element.style.visibility = 'visible';
+    element.style.display = 'flex';
 }
 function testAnzeiger() {
     console.clear();
@@ -31,25 +87,13 @@ function testAnzeiger() {
  * befuellt searchedTags mit allen gewälten constraints
  */
 function getSearchTags() {
-    const artFragestellung = getHTMLElementByIDValue('art-fragestllung');
-    const skalenniveau = getHTMLElementByIDValue('scale-niveau');
-    const rangbindung = getHTMLElementByIDValue('rangbindung');
-    const unterschiede = getHTMLElementByIDValue('interval-difference-mvv');
-    const amtSample = getHTMLElementByIDValue('sample-amt');
-    const amtFactor = getHTMLElementByIDValue('factors-amt');
-    const dependency = getHTMLElementByIDValue('dependency');
-    const datenreihen = getHTMLElementByIDValue('interval-difference-mw-sample');
-    const parametrisch = getHTMLElementByIDValue('parametric');
-    const popVarianz = getHTMLElementByIDValue('population-variance');
-    const variance = getHTMLElementByIDValue('variance');
-    const amtCategories = getHTMLElementByIDValue('categories-amt');
-    const expFrequency = getHTMLElementByIDValue('expexted-frequency');
-    const edgeProb = getHTMLElementByIDValue('edge-prob');
-    const sizeCorrel = getHTMLElementByIDValue('size-correl');
-    const equivalence = getHTMLElementByIDValue('equivalence-area');
+    let allTags = [];
+    for (const [key, Element] of selectorMap) {
+        console.log(key);
+        allTags.push(getHTMLElementByIDValue(key));
+    }
     samplesize = parseInt(getHTMLElementByIDValue('sample-size'), 10);
-    const allTags = [artFragestellung, rangbindung, skalenniveau, unterschiede, amtSample, dependency, datenreihen,
-        parametrisch, popVarianz, variance, amtFactor, amtCategories, expFrequency, edgeProb, sizeCorrel, equivalence]; //alle Felder werden in Array eingelesen
+    //alle Felder werden in Array eingelesen
     searchedTags = allTags.filter(tag => tag != "dunno"); //alle Leeren Felder werden rausgefiltert
     // console.log("searchedTags: "+ searchedTags)
 }
@@ -104,91 +148,5 @@ function listenerAssigner(array) {
 }
 function emptySeearchedTags() {
     searchedTags = [];
-}
-const fragestellung = document.getElementById('art-fragestllung');
-fragestellung.onchange = artFragestellungHandeler;
-function artFragestellungHandeler(e) {
-    testAnzeiger();
-    artFragestellungSelectorLimiter(e);
-}
-function artFragestellungSelectorLimiter(e) {
-    const value = e.target.value;
-    switch (value) {
-        case "UnterschiedFrage":
-            hider('selector-container');
-            unhider("dif-quest");
-            break;
-        case "ZusammenhangFrage":
-            hider('selector-container');
-            unhider("connect-quest");
-            break;
-        case "GleichheitFrage":
-            hider('selector-container');
-            unhider("equal-quest");
-            break;
-        default:
-            unhider('selector-container');
-            break;
-    }
-}
-document.getElementById('scale-niveau').onchange = scaleNiveauHandeler;
-function scaleNiveauHandeler(e) {
-    testAnzeiger();
-    scaleSelectorLimiter(e);
-}
-const valueToHTMLCLass = {
-    "UnterschiedFrage": " dif-quest",
-    "ZusammenhangFrage": " connect-quest",
-    "GleichheitFrage": " equal-quest",
-    "dunno": ""
-};
-function scaleSelectorLimiter(e) {
-    let frageValue = fragestellung.value;
-    frageValue = valueToHTMLCLass[frageValue];
-    const value = e.target.value;
-    switch (value) {
-        case "intervalScale":
-            hider('selector-container');
-            unhider('inverval' + frageValue);
-            break;
-        case "ordinalScale":
-            hider('selector-container');
-            unhider('ordinal' + frageValue);
-            break;
-        case "nominalScale":
-            hider('selector-container');
-            unhider('nominal' + frageValue);
-            break;
-        default:
-            unhider('selector-container');
-            break;
-    }
-}
-/**
- * Hided alle allemente mit gegebenem Klassennamen
- * @param classname Name der Klasse die versteckt werden soll
- */
-function hider(classname) {
-    const differenceElems = document.getElementsByClassName(classname);
-    for (const element of differenceElems) {
-        if (element.id == "fragestllung" || element.classList.contains("scale-niveau-container")) {
-            continue;
-        }
-        //@ts-ignore
-        element.style.visibility = 'hidden';
-        //@ts-ignore
-        element.style.display = 'none';
-    }
-}
-function unhider(classname) {
-    console.log(classname);
-    const allContainers = document.getElementsByClassName(classname);
-    for (const element of allContainers) {
-        // (element.querySelector('select')).value = "dunno"
-        //@ts-ignore
-        element.style.visibility = 'visible';
-        //@ts-ignore
-        element.style.display = 'flex';
-    }
 }
 //# sourceMappingURL=testRausfinder.js.map

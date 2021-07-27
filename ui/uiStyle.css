@@ -18,9 +18,23 @@ body {
 
 .input {
   height: 50em;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.input::-webkit-scrollbar {
+  width: 12px;
+}
+
+.input::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+.input::-webkit-scrollbar-thumb {
+  background: #d6d5d9;
+  border-radius: 20px;
 }
 
 .output {
@@ -46,7 +60,7 @@ body {
   background: linear-gradient(145deg, #3a3d44, #2c2f33);
   box-shadow: 0.5em 0.5em 2em #222528, -0.5em -0.5em 1em #4a4f57;
   gap: 7px;
-  width: 20rem;
+  width: 16rem;
   margin: 2px;
   padding: 10px;
   border-radius: 5px;

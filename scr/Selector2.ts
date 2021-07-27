@@ -113,26 +113,6 @@ abstract class Selector{
 
 }
 
-function createElement(elem: Selector) {
-    const container = document.createElement('div');
-    container.setAttribute('id', elem.name + "-container")
-    container.setAttribute('class', "selector-container")
-    const label = document.createElement('label');
-    label.setAttribute('for', elem.name)
-    label.innerText = elem.label
-    const select = document.createElement('select');
-    select.setAttribute("id", elem.name)
-    select.setAttribute('class', 'selector')
-    container.appendChild(label)
-    container.appendChild(select)
-    for (const optionsKey in elem.options) {
-        const option = document.createElement('option');
-        option.setAttribute('value', optionsKey)
-        option.innerText = elem.options[optionsKey]
-        select.appendChild(option)
-    }
-    document.getElementById('body').appendChild(container)
-}
 
 class Variance extends Selector {
 
@@ -300,8 +280,6 @@ class Dependency extends Selector{
         return this.instance
     }
 }
-
-
 
 class AquivalenceArea extends Selector{
     constructor() {
@@ -490,7 +468,7 @@ class Question extends Selector{
     }
 }
 
-const selectorMap = new Map([
+export const selectorMap = new Map([
     [Question.getInstance().name,Question.getInstance()],
     [Skalenniveau.getInstance().name, Skalenniveau.getInstance()],
     [Difference.getInstance().name, Difference.getInstance()],
@@ -508,42 +486,8 @@ const selectorMap = new Map([
 ])
 
 
-for (const [key, selector] of selectorMap) {
-    createElement(selector)
-}
 
-const selectorElements = document.getElementsByClassName('selector');
-for (const selectorElement of selectorElements) {
-    (<HTMLInputElement> selectorElement).onchange = changehandeler
-}
 
-function changehandeler(e) {
-    selectorMap.forEach(elem => elem.visibility = false)
-    selectorMap.get("fragestellung").setChildrenVisibility()
-    selectorMap.forEach(elem =>{
-        if (!elem.visibility) {
-            hider(elem.name);
-        } else {
-            unhider(elem.name)
-        }
-    })
-
-}
-
-function hider(id: string): void {
-    const element = document.getElementById(id+"-container");
-        //@ts-ignore
-        element.style.visibility = 'hidden';
-        //@ts-ignore
-        element.style.display = 'none'
-}
-
-function unhider(id: string) {
-    const element = document.getElementById(id+"-container");
-    element.style.visibility = 'visible'
-    element.style.display = 'flex'
-
-}
 
 
 
