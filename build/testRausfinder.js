@@ -1,7 +1,7 @@
 import { testClassArray } from "./TestsAsClass.js";
 import { selectorMap } from "./Selector2.js";
 for (const [key, selector] of selectorMap) {
-    createElement(selector);
+    // createElement(selector)
 }
 function createElement(elem) {
     const container = document.createElement('div');
@@ -19,7 +19,7 @@ function createElement(elem) {
         const option = document.createElement('option');
         option.setAttribute('value', optionsKey);
         if (optionsKey == "dunno") {
-            option.setAttribute('id', 'dunno');
+            option.setAttribute('class', 'dunno');
         }
         option.innerText = elem.options[optionsKey];
         select.appendChild(option);
@@ -56,7 +56,7 @@ function selectorHider() {
 }
 function hider(id) {
     const element = document.getElementById(id + "-container");
-    const dunnoElem = element.querySelector("#dunno");
+    const dunnoElem = element.querySelector(".dunno");
     dunnoElem.selected = true;
     //@ts-ignore
     element.style.visibility = 'hidden';

@@ -7,10 +7,7 @@ abstract class Selector{
     private _options: Object = {"dunno":"Keine Ahnung"}
     private _label:string
     private _children: Map<string, Selector> = new Map<string, Selector>()
-    private _parent: Selector
     private _visible: boolean
-    private _parentDesicion: string
-    private _htmlElement = (<HTMLInputElement> document.getElementById(this.name))
 
     constructor(name: string, label:string, info: string, tags: string[], options: Object, children?: Map<string, Selector>) {
         this._name = name
@@ -67,14 +64,6 @@ abstract class Selector{
         this._visible = val
     }
 
-    get parentDesicion(): string {
-        return this._parentDesicion;
-    }
-
-    set parentDesicion(value: string) {
-        this._parentDesicion = value;
-    }
-
     static getInstance():Selector {
         return null
     }
@@ -103,14 +92,11 @@ abstract class Selector{
                 console.log("gibts nicht")
             }
         }
-
     }
 
     getSelectValue(name:string): string{
         return (<HTMLInputElement> document.getElementById(name)).value
     }
-
-
 }
 
 

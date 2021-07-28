@@ -339,7 +339,4 @@ export const selectorMap = new Map([
     [ExpectedFreq.getInstance().name, ExpectedFreq.getInstance()],
     [Variance.getInstance().name, Variance.getInstance()],
 ]);
-// for (const [key, selector] of selectorMap) {
-//     createElement(selector)
-// }
 //# sourceMappingURL=Selector2.js.map

@@ -8,6 +8,123 @@
 <body>
 
 <div id="input" class="input section">
+    <div id="fragestellung-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="fragestellung">Art der Fragestellung</label>
+        <select id="fragestellung" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="UnterschiedFrage">Unterschied</option>
+            <option value="ZusammenhangFrage">Zusammenhang</option>
+            <option value="GleichheitFrage">Gleichheit</option>
+        </select></div>
+    <div id="niveau-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="niveau">Skalenniveau</label>
+        <select id="niveau" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="nominalScale">Nominal</option>
+            <option value="ordinalScale">Ordinal</option>
+            <option value="intervalScale">Interval</option>
+            <option value="SkalenniveauAVintervalScale">UV: nominal AV: intervall</option>
+        </select>
+    </div>
+    <div id="difference-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="difference">Unterschiede</label>
+        <select id="difference" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="unterschiedHinsichtMittelwert">Mittelwert</option>
+            <option value="unterschiedHinsichtVarianz">Varianz</option>
+            <option value="unterschiedHinsichtVerteilung">Verteilung</option>
+        </select>
+    </div>
+    <div id="sample-amt-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="sample-amt">Anzahl SP</label>
+        <select id="sample-amt" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="amtStichProbe1SP">1 Stichprobe</option>
+            <option value="amtStichProbe2SP">2 Stichproben</option>
+            <option value="amtStichProbe>2SP">&gt; 2 Stichproben</option>
+        </select>
+    </div>
+    <div id="categories-amt-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="categories-amt">Anzahl Kategorien</label>
+        <select id="categories-amt" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="amtKategorienDichotom">Dichotom</option>
+            <option value="amtKategorienPolytom">Polytom</option>
+        </select>
+    </div>
+    <div id="equivalence-area-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="equivalence-area">Äquivalenzbereich</label>
+        <select id="equivalence-area" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="aequivalenzgegeben">gegeben</option>
+            <option value="aequivalenzNichtgegeben">nicht gegeben</option>
+        </select>
+    </div>
+    <div id="dependency-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="dependency">Abhängigkeit</label>
+        <select id="dependency" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="AbhaengigkeitTrue">abhängig</option>
+            <option value="AbhaengigkeitFalse">unanhängig</option>
+        </select>
+    </div>
+    <div id="pop-variance-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="pop-variance">PopulationsVarianz</label>
+        <select id="pop-variance" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="PopulationsVarianzBekannt">bekannt</option>
+            <option value="PopulationsVarianzUnbekannt">unbekannt</option>
+        </select>
+    </div>
+    <div id="factors-amt-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="factors-amt">Anzahl Faktoren</label>
+        <select id="factors-amt" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="amtFaktoren1">1 Faktor</option>
+            <option value="amtFaktoren2">2 Faktor</option>
+        </select>
+    </div>
+    <div id="ties-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="ties">besteht Rangbindung</label>
+        <select id="ties" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="rangbindungNEIN">Nein</option>
+            <option value="rangbindungJA">Ja</option>
+        </select>
+    </div>
+    <div id="edge-prop-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="edge-prop">Randwahrscheinlichkeiten</label>
+        <select id="edge-prop" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="randwarscheinlichkeitBekannt">bekannt</option>
+            <option value="randwarscheinlichkeitUnbekannt">unbekannt</option>
+        </select>
+    </div>
+    <div id="size-korrel-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="size-korrel">Größe Korrelation</label>
+        <select id="size-korrel" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="groesseKorrelP=0">p=0</option>
+            <option value="groesseKorrelP!=0">p ≠ 0</option>
+        </select>
+    </div>
+    <div id="expexted-frequency-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="expexted-frequency">Erwartete Häufigkeit</label>
+        <select id="expexted-frequency" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="erwartetehaufigkeite*p*q>9">n*p*q &amp;gt 9</option>
+            <option value="erwartetehaufigkeite>10">e &amp;gt 10</option>
+            <option value="erwartetehaufigkeite<=10">e ≤ 10</option>
+        </select>
+    </div>
+    <div id="variance-container" class="selector-container" style="visibility: visible; display: flex;">
+        <label for="variance">Varianzen</label>
+        <select id="variance" class="selector">
+            <option value="dunno" class="dunno">Keine Ahnung</option>
+            <option value="varianzenHomogen">homogen</option>
+            <option value="varianzenHeterogen">heterogen</option>
+        </select>
+    </div>
     <div id="sample-size-container" class="sample-size-container selector-container">
         <label for="sample-size">Stichprobengröße</label>
         <input type="number" id="sample-size">
