@@ -325,7 +325,8 @@ class SampleAmt extends Selector{
             {
                 "amtStichProbe1SP":"1 Stichprobe",
                 "amtStichProbe2SP":"2 Stichproben",
-                "amtStichProbe>2SP":"> 2 Stichproben"
+                "amtStichProbe>2SP":"> 2 Stichproben",
+                "amtStichProbe1VSGG": "1 SP vs GG"
             },
             children
             );

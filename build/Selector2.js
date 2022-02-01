@@ -2,7 +2,6 @@ class Selector {
     constructor(name, label, info, tags, options, children) {
         this._options = { "dunno": "Keine Ahnung" };
         this._children = new Map();
-        this._htmlElement = document.getElementById(this.name);
         this._name = name;
         this._info = info;
         this._tags = tags;
@@ -45,12 +44,6 @@ class Selector {
     }
     set visibility(val) {
         this._visible = val;
-    }
-    get parentDesicion() {
-        return this._parentDesicion;
-    }
-    set parentDesicion(value) {
-        this._parentDesicion = value;
     }
     static getInstance() {
         return null;
@@ -231,7 +224,8 @@ class SampleAmt extends Selector {
         super("sample-amt", "Anzahl SP", "", [], {
             "amtStichProbe1SP": "1 Stichprobe",
             "amtStichProbe2SP": "2 Stichproben",
-            "amtStichProbe>2SP": "> 2 Stichproben"
+            "amtStichProbe>2SP": "> 2 Stichproben",
+            "amtStichProbe1VSGG": "1 SP vs GG"
         }, children);
     }
     static getInstance() {

@@ -8,7 +8,9 @@ let samplesize: number = 0
 
 let searchedTags = []
 
-sendBtn.addEventListener('click', testAnzeiger )
+sendBtn.addEventListener('click', resetter )
+
+document.getElementById('sample-size').onchange = selectorChangeHandeler
 
 const selectors = document.getElementsByClassName('selector');
 //adds onchangeEvent to every Selector
@@ -20,6 +22,18 @@ for (const selector of selectors) {
 function selectorChangeHandeler() {
     testAnzeiger()
     selectorHider()
+}
+
+
+function resetter() {
+    (<HTMLInputElement> document.getElementById('sample-size')).value = ""
+    selectorMap.forEach(elem => {
+        const element = document.getElementById(elem.name);
+        const dunnoElem = element.querySelector(".dunno");
+        (<HTMLOptionElement> dunnoElem).selected = true
+        unhider(elem.name)
+        }
+    )
 }
 
 function selectorHider() {

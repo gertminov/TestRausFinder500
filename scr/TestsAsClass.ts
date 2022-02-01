@@ -82,11 +82,11 @@ export class Test {
 
 const gauss2Test = new Test(
     "Gauss-Test",
-    "Das ist der Gauss Test",
+    "Das ist der Gauss Test, er Gausst sehr viel und ist auch sonst echt toll",
     [
         popVarianz.bekannt,
         popVarianz.unbekannt,
-        amtSP.einsVSGG,
+        amtSP.eins,
         "unterschiedHinsichtMittelwert",
         skalenniveau.intervall,
         fragestellung.unterschied],
@@ -101,7 +101,7 @@ const tTest1SP = new Test(
     [
         parametrisch.param,
         popVarianz.unbekannt,
-        amtSP.einsVSGG,
+        amtSP.eins,
         "unterschiedHinsichtMittelwert",
         skalenniveau.intervall,
         fragestellung.unterschied
@@ -188,7 +188,7 @@ const chiQuadrat = new Test(
     "Chi^2 Test (X^2 Test)",
     "",
     [
-        amtSP.einsVSGG,
+        amtSP.eins,
         "unterschiedHinsichtVarianz",
         skalenniveau.intervall,
         fragestellung.unterschied
